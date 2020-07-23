@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecture One</title>
+	<meta name = "description" content = "IEOR">
+	<link rel="stylesheet" type="text/css" href="lectures.css">
+</head>
+<body>
+	<nav role="navigation bar">
+		<ul>
+			<li id="home"><a href="index.html">Home</a></li>
+			<li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+			<div class="dropdown">
+				<li>Lectures</li>
+				<div class="lectures">
+					<li><a href="lecture1.html">Lecture 1</a></li>
+					<li><a href="lecture2.html">Lecture 2</a></li>
+					<li><a href="lecture3.html">Lecture 3</a></li>
+					<li><a href="lecture4.html">Lecture 4</a></li>
+					<li><a href="lecture5.html">Lecture 5</a></li>
+				</div>
+			</div>
+			<div class="dropdown2">
+				<li>Code</li>
+				<div class="lecture_code">
+					<li><a href="code1.html">Lect. 1</a></li>
+					<li><a href="code2.html">Lect. 2</a></li>
+					<li><a href="code3.html">Lect. 3</a></li>
+					<li><a href="code4.html">Lect. 4</a></li>
+					<li><a href="code5.html">Lect. 5</a></li>
+					<li><a href="code6.html">Lect. 6</a></li>
+					<li><a href="matlab.html">Matlab</a></li>
+				</div>
+			</div>
+			<li id="about"><a href="about.html">About</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>Lecture 1</h2>
+		<h3>Root finding/zero finding</h3>
+		<p>The first major topic is root-finding (zero-finding).</p>
+		<p>To jog your memory a bit, the most common illustration of finding roots is through an equation, as shown below: the square root of 2 is the "root" of the function x<sup>2</sup> - 2 = 0. We will not be going too in-depth into Taylor expansion/Taylor series.</p>	
+		<img src="images/taylor_expansion.png">
+		<p>Below is a fascinating hand-calculation of the square root of 2 that you should look into when you have time.</p>	
+		<img src ="images/squareRootExample.jpg">
+		<p>Besides brute force, there are three major root-finding methods that people know: the Bisection method, the Newton-Raphson method, and the Secant method.</p>
+		<ol>
+			<li>Brute force</li>
+			<p>Try every possibility in order to find the zeroes. We will not focus on this method.</p>
+			<li>Bisection method: </li>
+			<p>Below is an illustration of the bisection method for the square root of 2, with a tolerance level of 0.0001 (essentially how <i>accurate</i> you want the method to be).</p>
+			<img src="images/bisection_method.jpg">
+			<p>The pros are that the Bisection method guarantees convergence to a root, since the error-bound decreases by a factor of 2 with each iteration. The cons are that it is generally very slow (and thus expensive) due to the "curse of dimensionality" in which the higher the power, the worse the following calculation we need to do. This method also cannot detect multiple roots.</p>
+			<li>Newton-Raphson method:</li>
+			<p>Below is the illustration for the Newton-Raphson method.</p>
+			<img src="images/newton_raphson.jpg">
+			<p>The benefit to this method is that it is very fast, since the error decreases very quickly with each iteration. The cost is that there is not necessarily a guarantee of convergence (as long as the function is convex, the function will converge; otherwise, we are not sure). Additionally, the initial starting point is very important and could determine how accurate the method is. Each iteration requires 2 function evaluations (which also could be expensive).</p>
+			<li>Secant method:</li>
+			<p>The third method is the Secant method, shown below.</p>
+			<img src="images/secant.jpg">
+			<p>A "shortcut" method is the Secant method. This is good for convex/concave functions, but not necessarily oscillations. This method, aptly named, uses a secant line.</p>
+		</ol>
+
+		<h3>Overview: Curve-fitting</h3>
+		<p>We will later be going over curve-fitting. The essential part and general idea of curve-fitting is finding a curve (in this case, we assume polynomial function) that fits all the datapoints you have on hand.</p>
+		<img src="images/curve_fitting.png">
+		<p>Loss functions are also important in curve-fitting. Below is an equation of one:</p>
+		<img src="images/grid_search.png">
+
+		<h3>Overview: Optimization</h3>
+		<p>We will also later be going over different types of gradient descent: Vanilla, Minibatch, and Stochastic.</p>
+		<img src="images/optimization_list.PNG">
+		<p>Details will be given later.</p>
+
+		<p>Take a look at Professor Hirsa's notes in a pdf: <a href="lecture_pdfs/lecture1.pdf">Lecture 1 Notes</li></p>
+
+	</main>
+	<footer role="contact info">
+		<ul>
+			<li>CONTACT</li>
+			<li>Email: ali.hirsa@columbia.edu</li>
+		</ul>
+	</footer>
+</body>
+</html>

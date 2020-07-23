@@ -1,0 +1,1690 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecture One</title>
+	<meta name = "description" content = "IEOR">
+	<link rel="stylesheet" type="text/css" href="lectures.css">
+</head>
+<body>
+	<nav role="navigation bar">
+		<ul>
+			<li id="home"><a href="index.html">Home</a></li>
+			<li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+			<div class="dropdown">
+				<li>Lectures</li>
+				<div class="lectures">
+					<li><a href="lecture1.html">Lecture 1</a></li>
+					<li><a href="lecture2.html">Lecture 2</a></li>
+					<li><a href="lecture3.html">Lecture 3</a></li>
+					<li><a href="lecture4.html">Lecture 4</a></li>
+					<li><a href="lecture5.html">Lecture 5</a></li>
+				</div>
+			</div>
+			<div class="dropdown2">
+				<li>Code</li>
+				<div class="lecture_code">
+					<li><a href="code1.html">Lect. 1</a></li>
+                    <li><a href="code2.html">Lect. 2</a></li>
+                    <li><a href="code3.html">Lect. 3</a></li>
+                    <li><a href="code4.html">Lect. 4</a></li>
+                    <li><a href="code5.html">Lect. 5</a></li>
+                    <li><a href="code6.html">Lect. 6</a></li>
+                    <li><a href="matlab.html">Matlab</a></li>
+				</div>
+			</div>
+			<li id="about"><a href="about.html">About</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>MATLAB code</h2>
+		<p>This is all of the original MATLAB code.</p>
+        <p><span style="color:red">LECTURE 1</span></p>
+
+		<h3>exampleBisection.m</h3>
+		<p><pre>function count = exampleBisection(tol)
+
+xLeft  = -10.5;
+xRight =  10.0;
+
+%tol = 0.000000000000001;
+count = 0;
+
+count2 = ceil ((log(xRight-xLeft)- log(tol) )/log(2));
+
+while 1
+    
+    mid = (xLeft+xRight)/2.0;
+    
+    if mid^2-2.0 < 0
+        xLeft = mid;
+    else
+        xRight = mid;
+    end
+    
+    count = count+1;
+    
+    if abs(xRight-xLeft) < tol
+        break;
+    end 
+end
+
+x = (xLeft+xRight)/2.0;
+
+disp(['Count:', num2str(count), ' sqrt(2)=', num2str(sqrt(2), '%15.14f'), ' vs. computer solution ', num2str(x, '%15.14f')]);
+    
+disp(count2);</pre></p>
+
+<h3>exampleNewton_Raphson.m</h3>
+<p><pre>
+tol = 0.000000000000001;
+count = 0;
+
+x = 20000000;
+
+a = 2;
+uBound = 30;
+lBound = -uBound;
+
+
+xX = lBound:0.01:uBound;
+f = xX.^2-a;
+y = zeros(size(xX));
+
+plot(xX, f);
+hold on;
+plot(xX,y);
+
+while 1
+    
+    slope = 2.0*x;
+    xIntercept = x-(x^2-a)/slope;
+    xX = xIntercept:.01:uBound;
+    y = slope*(xX-x) + (x^2-a);
+    
+    plot(xIntercept,0, 'o');
+    plot(xX, y);
+    
+    % before updating, make a copy
+    % There are alternatives to it
+    xPre = x;
+    x = x - (x^2-a)/(2.0*x);
+    
+    count = count+1;
+    
+    pause;
+    
+    if abs(x-xPre) < tol
+        break;
+    end 
+end
+
+hold off;
+
+disp(['Count:', num2str(count), ' sqrt(a)=', num2str(sqrt(a), '%15.14f'), ' vs. Newton-Raphson Solution ', num2str(x, '%15.14f')]);
+</pre></p>
+
+<h3>exampleSecant.m</h3>
+<p><pre>
+tol = 0.00000001;
+count = 0;
+
+x0 = 10000;
+x1 = 9500;
+
+f0 = (x0^2-2);
+% efficiency matters
+
+while 1
+    
+    f1 = (x1^2-2);
+    
+    x2 = x1 - f1/((f1-f0)/(x1-x0));
+    count = count+1;
+    
+    if abs(x2-x1) < tol
+        break;
+    end
+    
+    % very important
+    x0 = x1;
+    x1 = x2;
+    
+    f0 = f1;
+    
+    %x1 = x2;
+    %x0 = x1;
+    
+    disp(x2);
+end
+
+disp(['Count:', num2str(count), ' sqrt(2)=', num2str(sqrt(2), '%15.14f'), ' vs. Secant Solution ', num2str(x, '%15.14f')]);	
+</pre></p>
+
+<h3>exampleSquareRoot.m</h3>
+<p><pre>
+function sqrtY = exampleSquareRoot(y, decimal)
+%
+divisor = 1;
+
+for j = 1 : decimal+1
+    
+    if j == 1
+        
+        for i = 0:9
+            tmp1 = (i+1)*(i+1);
+            if tmp1 > y  
+                x = i;
+                sqrtY = x*x/divisor;
+                break;
+            end
+        end
+        
+        remainder = y - sqrtY;
+        
+    else
+        
+        divisor = divisor*10;
+        
+        tmp1 = x*2;
+        remainder = remainder*100;
+        
+        disp([tmp1 x remainder]);
+        pause;
+        
+        for i = 0:9
+            if (tmp1*10+(i+1))*(i+1) > remainder 
+                
+                remainder = remainder - (tmp1*10+i)*i;
+                x = x*10+i;
+                sqrtY = x/divisor;
+                break;
+                
+            end
+        end
+        
+    end
+    
+    disp(sqrtY);
+    
+end
+</pre></p><br><br>
+
+<p><span style="color:red">LECTURE 2</span></p>
+<h3>calcF.m</h3>
+<p><pre>
+    function y = calcF(x, params)
+%
+% Chebychev polynomial
+% Take it for granted
+a0 = params(1);
+a1 = params(2);
+a2 = params(3);
+a3 = params(4);
+a4 = params(5);
+a5 = params(6);
+a6 = params(7);
+a7 = params(8);
+a8 = params(9);
+a9 = params(10);
+%
+u0 = 1;
+u1 = 2*x;
+u2 = 4*x.^2-1;
+u3 = 8*x.^3-4*x;
+u4 = 16*x.^4 - 12*x.^2 + 1;
+u5 = 32*x.^5 - 32*x.^3 + 6*x;
+u6 = 64*x.^6 - 80*x.^4 + 24*x.^2 - 1;
+u7 = 128*x.^7 - 192*x.^5 + 80*x.^3 - 8*x;
+u8 = 256*x.^8 - 448*x.^6 + 240*x.^4 - 40*x.^2 + 1;
+u9 = 512*x.^9 - 1024*x.^7 + 672*x.^5 - 160*x.^3 + 10*x;
+%
+y = a0*u0 + a1*u1 + a2*u2 + a3*u3 + a4*u4 + a5*u5 + a6*u6 + a7*u7 + a8*u8 + a9*u9;
+</pre></p>
+
+<h3>calculatingSqrtViaTaylor.m</h3>
+<p><pre>
+    function y = calculatingSqrtViaTaylor(x, tol)
+%
+a = 4;
+h = x-a;
+
+numer = h;
+denom = a;
+y = 2 + numer/denom;
+
+fact1 = 1;
+sgn = 1;
+yPre = 1e10;
+
+count = 1;
+
+while 1
+    
+    count = count+1;
+    
+    sgn = -sgn;
+    
+    numer = numer *     h     * (2*count-3);
+    denom = denom * (fact1+1) * 2 * (2*2);
+    
+    y = y + sgn * numer/denom;
+    
+    fact1 = fact1+1;
+    
+    disp([sqrt(x) y]);
+    
+    if (abs(yPre-y)) < tol
+        break;
+    end
+    
+    yPre = y;
+    
+    pause;
+   
+end
+</pre></p>
+
+<h3>calculationSinViaTaylor.m</h3>
+<p><pre>
+function y = calculationSinViaTaylor(x, tol)
+
+sgn = 1;
+numer = x;
+denom = 1;
+fact1 = 1;
+y = numer/denom;
+yPre = 1e10;
+
+count = 0;
+
+while 1
+    
+    count = count+1;
+    
+    sgn = -sgn;
+    
+    numer = numer*x*x;
+    denom = denom*(fact1+1)*(fact1+2);
+    
+    y = y + sgn*numer/denom;
+    
+    fact1 = (fact1+2);
+    
+    disp([y sin(x) count]);
+    
+    if (abs(yPre-y)) < tol
+        break;
+    end
+    
+    yPre = y;
+    pause(1);
+    
+    
+end
+
+disp([y sin(x) count]);
+</pre></p>
+
+<h3>objFunc1.m</h3>
+<p><pre>
+function mae = objFunc1(params, data)
+
+a0 = params(1);
+a1 = params(2);
+a2 = params(3);
+a3 = params(4);
+a4 = params(5);
+
+x = data(:,1);
+y = data(:,2);
+
+mae = 0;
+for iI = 1:length(x)
+    
+    yHat = a0 + a1*x(iI) + a2*x(iI)^2 + a3*x(iI)^3 + a4*x(iI)^4;
+    mae = mae + (y(iI)-yHat)^2;
+    
+end
+</pre></p>
+
+<h3>objFunc3.m</h3>
+<p><pre>function mae = objFunc2(params, data)
+
+x = data(:,1);
+y = data(:,2);
+
+yHat = calcF(x, params);
+mae = sum((y-yHat).^2);</pre></p>
+
+<h3>run_example0.m</h3>
+<p><pre>%% Data
+
+x = -5:0.5:5;
+x = x(:);
+y = 1.23 + 2.32*x.^3;
+data = [x y];
+plot(x, y, 'o');
+
+
+%% Grid Search
+maeMin = 1.0e6;
+for i0 = 0:.1:10
+    for i3 = 0:.1:10
+        yHat = i0 + i3*x.^3;
+        mae = sum((y-yHat).^2);
+        if mae < maeMin
+            maeMin = mae;
+            a0 = i0;
+            a3 = i3;
+        end
+    end
+end
+
+yHat = a0 + a3*x.^3;
+plot(x, y, 'o');
+hold on;
+plot(x, yHat, '*');
+hold off;
+</pre></p>
+
+<h3>run_example1.m</h3>
+<p><pre>
+Objective C
+run_example.m
+%% Opt Params
+
+tol  = 1e-6;
+myOptions = optimset(...
+    'Display', 'iter', ...
+    'MaxIter', 500, ...
+    'MaxFunEvals', 50000, ...
+    'TolX', tol, ...
+    'TolFun', tol, ...
+    'TolCon', tol, ...
+    'LargeScale', 'off');
+
+
+%% Data
+
+x = -5:0.5:5;
+x = x(:);
+y = 1.23 + 2.32*x.^3;
+data = [x y];
+plot(x, y, 'o');
+
+
+%% Curve-Fitting
+
+% a0 + a1*x + a2*x.^2 + a3*x.^3 + a4*x.^4
+
+%{
+a0 = 0;
+a1 = 0;
+a2 = 0;
+a3 = 0;
+a4 = 1;
+%}
+
+a0 = 0;
+a1 = 0;
+a2 = 0;
+a3 = 0;
+a4 = 1;
+
+params = [a0 a1 a2 a3 a4];
+
+params = fminsearch('objFunc1', params, myOptions, data);
+
+params = fminsearch('objFunc1', params, myOptions, data);
+
+%% Plotting/Eye-balling
+
+a0 = params(1);
+a1 = params(2);
+a2 = params(3);
+a3 = params(4);
+a4 = params(5);
+
+yHat = a0 + a1*x + a2*x.^2 + a3*x.^3 + a4*x.^4;
+plot(x, y, 'o');
+hold on;
+plot(x, yHat, '*');
+hold off;
+</pre></p>
+
+<h3>run_example2.m</h3>
+<p><pre>run_example2.m
+%% Opt Params
+
+tol  = 1e-6;
+myOptions = optimset(...
+    'Display', 'off', ...
+    'MaxIter', 2000, ...
+    'MaxFunEvals', 50000, ...
+    'TolX', tol, ...
+    'TolFun', tol, ...
+    'TolCon', tol, ...
+    'LargeScale', 'off');
+
+
+%% Data
+
+disp('1. First set of data is coming...');
+
+x0 = [-0.985  -0.98    -0.82    -0.81    -0.6     -0.59    -0.57     -0.2      -0.21     -0.02    0.64      0.66      0.95      0.96];
+y0 = [ 6.2644  3.1533   1.3344   2.7041   1.9609   1.1267  -0.5129   -1.6032   -1.8445   -2.1286 -5.9291   -9.1013  -10.6593   -7.7509];
+
+x0 = x0(:);
+y0 = y0(:);
+data = [x0 y0];
+
+%% Curve-Fitting
+
+a0 = 5;
+a1 = 0;
+a2 = 0;
+a3 = 0;
+a4 = 0;
+a5 = 0;
+a6 = 0;
+a7 = 0;
+a8 = 0;
+a9 = 0;
+params = [a0 a1 a2 a3 a4 a5 a6 a7 a8 a9];
+
+disp('2. Curve fitting ...');
+
+for j=1:5
+    params = fminsearch('objFunc2', params, myOptions, data);
+end
+
+
+
+%% Plotting/Eye-balling
+x = -1:0.01:1;
+yHat = calcF(x, params);
+
+disp('3. Plot to see how good the fit was (eye-balling part) ...');
+plot(x0, y0, 'o');
+hold on;
+plot(x, yHat, '.-');
+hold on;
+
+pause;
+
+%%
+
+disp('4. New set of data just arrived ...');
+x1 = [-0.9     -0.8     -0.7     -0.6      -0.5      -0.4      -0.3      -0.2      -0.1       0.0       0.1     0.2       0.3       0.4       0.5       0.6       0.7       0.8       0.9];
+y1 = [2.4098    1.7965   1.1961   0.6284    0.0058   -0.5960   -1.1682   -1.8161   -2.3861   -2.9833 -3.6049   -4.1957   -4.8233   -5.4230   -5.9979   -6.5856   -7.1483   -7.8133   -8.3963];
+
+x1 = x1(:);
+y1 = y1(:);
+
+yHat1 = calcF(x1, params);
+
+
+disp('5. Plot it on the top of the old one ...');
+plot(x1, y1, 'o');
+hold on;
+plot(x1, yHat1, '*');
+hold on;
+
+pause;
+
+%%
+
+x2 = [x0; x1];
+y2 = [y0; y1];
+
+data = [x2 y2];
+
+
+a0 = 3;
+a1 = 0;
+a2 = 0;
+a3 = 0;
+a4 = 0;
+a5 = 0;
+a6 = 0;
+a7 = 0;
+a8 = 0;
+a9 = 0;
+
+disp('6. Something is not right');
+disp('7.Re-fit again ...');
+params = [a0 a1 a2 a3 a4 a5 a6 a7 a8 a9];
+
+for j=1:20
+    params = fminsearch('objFunc2', params, myOptions, data);
+end
+
+disp('8. Plot ...');
+plot(x2, y2, 'o');
+hold on;
+x = -1:0.02:1;
+yHat2 = calcF(x, params);
+plot(x, yHat2, '.-');
+hold off;</pre></p>
+
+<br><br>
+
+<p><span style="color:red">LECTURE 3</span></p>
+<h3>evalF.m</h3>
+<p><pre>function f = evalF(x, y)
+
+f = 2*(x-20.23).^2 + 5*(y+31.23).^2 + (x-20.23).*(y+31.23) + 10;</pre></p>
+
+<h3>exampleGradientDescentOld.m</h3>
+<p><pre>% Simple code on Gradient Descent
+% Finding its global minimum using GD
+%f = 2*(X-a).^2 + 5*(Y-b).^2 + (X-a).*(Y-b) + c;
+
+
+%starting point
+X = [-100 -200];
+
+%learning rate
+% test it by using different learning rates 
+g1 = 0.001;
+%g1 = 0.01;
+%g1 = 0.1;
+%g1 = 1;
+%g1 = 10;
+
+nIters = 100;
+
+for i = 1:nIters
+    delF = gradient(X);
+    X = X - g1*delF;
+    x1 = X(1);
+    x2 = X(2);
+    F = 2*(x1-1)^2 + 3*(x2-3)^2 + 12;
+    disp([F, X]);
+end
+
+
+function delF = gradient(X)
+%
+x1 = X(1);
+x2 = X(2);
+delF = [4.0*(x1-1.0) 6.0*(x2-3)];
+end</pre></p>
+
+<h3>exampleMinimization_ViaBruteForce.m</h3>
+<p><pre>%% Plot the surface
+
+%f = 2*(X-a).^2 + 5*(Y-b).^2 + (X-a).*(Y-b) + c;
+
+x = linspace(-300,300);
+y = linspace(-300,300);
+[X,Y] = meshgrid(x,y);
+
+f = evalF(X,Y);
+surf(X,Y,f);
+
+%% Grid Search --- Brute_Force 
+
+tstart = tic;
+
+fMin = 1.0e18;
+
+% step-size will make it fine or coarse
+for x = -40:0.01:40
+    for y = -40:0.01:40
+        f = evalF(x,y);
+        if f < fMin
+            fMin = f;
+            xMin = x;
+            yMin = y;
+        end
+    end
+end
+
+telapsed = toc(tstart);
+disp(telapsed);
+
+disp([xMin yMin fMin]);</pre></p>
+
+<h3>exampleMinimization_ViaGradientDescent.m</h3>
+<p><pre>%% Plot the surface
+
+%f = 2*(X-a).^2 + 5*(Y-b).^2 + (X-a).*(Y-b) + c;
+
+x = linspace(-200,200);
+y = linspace(-200,200);
+[X,Y] = meshgrid(x,y);
+
+f = evalF(X,Y);
+surf(X,Y,f);
+
+%% Contour
+
+contour(X, Y, f, 40);
+hold on;
+%contour(X,Y,Z,'ShowText','on')
+
+
+
+%% Simple code on Gradient Descent
+%  Finding its global minimum using GD
+%  starting point
+x_i = [100 100];
+
+%learning rate
+% test it by using different learning rates 
+
+% delta
+g1 = 0.1;
+
+%g1 = 0.07;
+%g1 = 0.01;
+%g1 = 0.1;
+%g1 = 1;
+%g1 = 10;
+
+nIters = 300;
+
+%for i = 1:nIters
+while 1
+    
+    delF = gradientF(x_i);
+    %quiver(x_i(1), x_i(2), -g1*delF(1), -g1*delF(2));
+    
+    x_pre = x_i;
+    x_i = x_i - g1*delF;
+    plot([x_pre(1) x_i(1)], [x_pre(2) x_i(2)]);
+    plot(x_i(1), x_i(2), 'o', 'LineWidth', 2, 'MarkerEdgeColor', 'k', 'MarkerFaceColor', 'g', 'MarkerSize',3);
+    x1 = x_i(1);
+    x2 = x_i(2);
+    fF = evalF(x1,x2);
+    disp([fF, x_i]);
+    pause;
+    
+    if something
+        break;
+    end
+    
+end
+
+hold off;
+</pre></p>
+
+<h3>exampleMinimization_ViaSimplex.m</h3>
+<p><pre>%% Plot the surface
+
+%f = 2*(X-a).^2 + 5*(Y-b).^2 + (X-a).*(Y-b) + c;
+
+x = linspace(-200,200);
+y = linspace(-200,200);
+[X,Y] = meshgrid(x,y);
+
+f = evalF(X,Y);
+surf(X,Y,f);
+
+
+%% Opt Params
+
+tol  = 1e-6;
+myOptions = optimset(...
+    'Display', 'off', ...
+    'MaxIter', 500, ...
+    'MaxFunEvals', 5000, ...
+    'TolX', tol, ...
+    'TolFun', tol, ...
+    'TolCon', tol, ...
+    'LargeScale', 'off');
+
+%% Starting Point
+tstart = tic;
+
+x0 = 1000;
+y0 = 1000;
+params = [x0 y0];
+
+%% Calling Simplex
+params = fminsearch('objFunc1', params, myOptions);
+
+telapsed = toc(tstart);
+
+disp(telapsed);
+x = params(1);
+y = params(2);
+
+fMin = evalF(x, y);
+
+disp([x y fMin]);</pre></p>
+
+<h3>gradientF.m</h3>
+<p><pre>function delF = gradientF(x)
+%
+x1 = x(1);
+x2 = x(2);
+delF = [4.0*(x1-20.23) + (x2+31.23)   10.0*(x2+31.23) + (x1-20.23)];</pre></p>
+
+<h3>objFunc1.m</h3>
+<p><pre>function mae = objFunc1(params)
+
+x = params(1);
+y = params(2);
+
+mae = evalF(x,y);</pre></p><br><br>
+
+<p><span style="color:red">LECTURE 4</span></p>
+<h3>anotherTrial.m</h3>
+<p><pre>%% Data 
+lenT = 1000;
+a0 = 5;
+b1 = 2.5;
+
+x1 = -2 + 4 *rand(lenT,1);
+
+y = zeros(lenT,1);
+for j = 1:lenT
+    y(j) = a0 + b1*x1(j) + randn;
+end
+
+plot(x1,y,'x');
+hold off;
+
+%% Regression
+
+ones1 = ones(lenT,1);
+X = [ones1 x1];
+
+[B, BINT, R, RINT, STATS] = regress(y,X);
+
+%% Optimization (Simplex)
+
+tol  = 1e-6;
+myOptions = optimset(...
+    'Display', 'iter', ...
+    'MaxIter', 500, ...
+    'MaxFunEvals', 5000, ...
+    'TolX', tol, ...
+    'TolFun', tol, ...
+    'TolCon', tol, ...
+    'LargeScale', 'off');
+
+
+% y = a0 + b1 * x1;
+a0 = 100000;
+b1 = 100000;
+params = [a0; b1];
+
+params = fminsearch('objFunc1', params, myOptions, y, x1);
+
+%% Gradient Descent
+
+a = -40:0.5:40;
+len1 = length(a);
+b = -50:0.5:50;
+len2 = length(b);
+
+s = zeros(len2,len1);
+
+for i = 1:len1
+    for j = 1:len2
+        s(j,i) = sum((y-a(i)-b(j)*x1).^2)/lenT;
+    end
+end
+
+%surf(b, a, s);
+
+subplot(1,2,1);
+contour(a,b,s,40);
+hold on;
+
+
+
+a0 = 40;
+b1 = -50;
+x_i = [a0; b1];
+x_0 = x_i;
+
+% learning 
+g1 = 0.9;
+
+nIters = 300;
+for i = 1:nIters
+
+    delF = gradient(x_i, y, x1);
+    
+    x_pre = x_i;
+    x_i = x_i - g1*delF;
+    
+    subplot(1,2,1);
+    plot([x_pre(1) x_i(1)], [x_pre(2) x_i(2)]);
+    plot(x_i(1), x_i(2), 'o', 'LineWidth', 2, 'MarkerEdgeColor', 'k', 'MarkerFaceColor', 'g', 'MarkerSize',3);
+    
+    a0 = x_i(1);
+    b1 = x_i(2);
+    
+    subplot(1,2,2);
+    plot(x1, y, '*');
+    hold on;
+    plot(x1, a0+b1*x1, 'r-');
+    hold off;
+    
+    fF = objFunc1([a0;b1], y, x1);
+    disp([fF, x_i(1) x_i(2)]);
+    pause;
+    
+end
+
+%% Visualization (for higher dimensional cases)
+x_S = [-40; 50];
+%x_S = x_i;
+
+alpha = -2:0.1:2;
+alpha = alpha(:);
+len3 = length(alpha);
+lossValues = zeros(len3,1);
+
+for k = 1:len3
+    x_Tmp = alpha(k)*x_0 + (1-alpha(k))*x_S;
+    lossValues(k) = objFunc1(x_Tmp, y, x1);
+end
+plot(alpha,lossValues);
+</pre></p>
+
+<h3>anotherTrial2.m</h3>
+<p><pre>
+    %% Data 
+lenT = 1000;
+x1 = -2 + 4 *rand(lenT,1);
+x2 = 1  + 2 *rand(lenT,1);
+y = zeros(lenT,1);
+for j = 1:lenT
+    y(j) = 5 + 2.5*x1(j) - 1.5*x2(j) + randn;
+end
+
+
+%% Regression
+
+ones1 = ones(lenT,1);
+X = [ones1 x1 x2];
+
+[B, BINT, R, RINT, STATS] = regress(y,X);
+
+%% Optimization (Simplex)
+
+tol  = 1e-6;
+myOptions = optimset(...
+    'Display', 'off', ...
+    'MaxIter', 500, ...
+    'MaxFunEvals', 5000, ...
+    'TolX', tol, ...
+    'TolFun', tol, ...
+    'TolCon', tol, ...
+    'LargeScale', 'off');
+
+
+% y = a0 + b1 * x1;
+a0 = 1000;
+b1 = 1000;
+b2 = 1000;
+params = [a0; b1; b2];
+
+params = fminsearch('objFunc2', params, myOptions, y, x1, x2);
+
+%% Gradient Descent
+
+
+a0 = 10;
+b1 = -20;
+b2 = -20;
+
+x_i = [a0; b1; b2];
+x_0 = x_i;
+
+g1 = 0.05;
+
+nIters = 500;
+for i = 1:nIters
+    delF = gradient2(x_i, y, x1, x2);
+    
+    x_pre = x_i;
+    x_i = x_i - g1*delF;
+    
+    a0 = x_i(1);
+    b1 = x_i(2);
+    b2 = x_i(3);
+    
+    fF = objFunc2([a0;b1;b2], y, x1, x2);
+    disp([fF x_i(1) x_i(2) x_i(3)]);
+    
+end
+
+%% Visulaization (for higher dimensional)
+%x_S = x_i;
+x_S = [-20; -10; 30];
+
+alpha = -2:0.1:2;
+alpha = alpha(:);
+len3 = length(alpha);
+lossValues = zeros(len3,1);
+
+for k = 1:len3
+    x_Tmp = (1-alpha(k))*x_0 + alpha(k)*x_S;
+    lossValues(k) = objFunc2(x_Tmp, y, x1, x2);
+end
+plot(alpha,lossValues);
+</pre></p>
+
+<h3>gradient.m</h3>
+<p><pre>function grad = gradient(params, y, x1)
+
+n = length(y);
+
+a0 = params(1);
+b1 = params(2);
+
+grad = [
+    -2*sum((y - a0 - b1*x1)    )/n
+    -2*sum((y - a0 - b1*x1).*x1)/n
+    ];</pre></p>
+
+<h3>gradient2.m</h3>
+<p><pre>function grad = gradient2(params, y, x1, x2)
+
+n = length(y);
+
+a0 = params(1);
+b1 = params(2);
+b2 = params(3);
+
+grad = [
+    -2*sum((y - a0 - b1*x1 - b2*x2)    )/n
+    -2*sum((y - a0 - b1*x1 - b2*x2).*x1)/n
+    -2*sum((y - a0 - b1*x1 - b2*x2).*x2)/n
+    ];</pre></p>
+
+<h3>objFunc1.m</h3>
+<p><pre>function mae = objFunc1(params, y, x1)
+
+a0 = params(1);
+b1 = params(2);
+
+n = length(y);
+
+mae = sum((y - a0 - b1*x1).^2)/n;</pre></p>
+
+<h3>objFunc2.m</h3>
+<p><pre>function mae = objFunc2(params, y, x1, x2)
+
+a0 = params(1);
+b1 = params(2);
+b2 = params(3);
+
+n = length(y);
+
+mae = sum((y - a0 - b1*x1 - b2*x2).^2)/n;</pre></p><br><br>
+
+<p><span style="color:red">LECTURE 5</span></p>
+<h3>gradF1.m</h3>
+<p><pre>function grad = gradF1(params)
+
+x = params(1);
+y = params(2);
+
+%Z =  3*(1-X).^2.*exp(-(X.^2)-(Y+1).^2) -  10*(X/5-X.^3-Y.^5).*exp(-X.^2-Y.^2)  -  1/3*exp(-(X+1).^2-Y.^2);
+
+grad =  [
+    (-6*(1-x)-6*x.*(1-x).^2).*exp(-(x.^2)-(y+1).^2) - 10*(1/5-3*x.*x +(x/5 - x.^3 - y.^5).*(-2*x)).*exp(-x.^2-y.^2) - 1/3*(-2*(x+1)).*exp(-(x+1).^2-y.^2)
+        -6*(1+y).*((1-x).^2).*exp(-(x.^2)-(y+1).^2) - 10*(-5*y.^4    +(x/5 - x.^3 - y.^5).*(-2*y)).*exp(-x.^2-y.^2) - 1/3*(-2*y).*    exp(-(x+1).^2-y.^2)
+    ];</pre></p>
+
+<h3>gradF2.m</h3>
+<p><pre>function grad = gradF2(params, y, x1)
+
+n = length(y);
+
+a0 = params(1);
+b1 = params(2);
+
+grad = [
+    -2*sum((y - a0 - b1*x1)    )/n
+    -2*sum((y - a0 - b1*x1).*x1)/n
+    ];</pre></p>
+
+<h3>main1.m</h3>
+<p><pre>%% Create a Bumpy Surface
+
+x = linspace(-5,5, 40);
+y = linspace(-4,4, 30);
+[X, Y] = meshgrid(x,y);
+
+Z =  3*(1-X).^2.*exp(-(X.^2)-(Y+1).^2) -  10*(X/5-X.^3-Y.^5).*exp(-X.^2-Y.^2)  -  1/3*exp(-(X+1).^2-Y.^2);
+
+figure(1);
+subplot(1,2,1);
+surf(X,Y,Z);
+
+%%
+
+method = 'GradientDescent';
+whichStartingPoint = '4';  
+g1 = 0.05;
+
+switch method
+    
+    case 'GradientDescent'
+        %% Gradient Descent (different starting points)
+        
+        subplot(1,2,2);
+        contour(X,Y,Z, 25);
+        hold on;
+        
+        switch whichStartingPoint
+            case '1'
+                x_i = [-1; +2.5];
+            case '2'
+                x_i = [1; 1];
+            case '3'
+                x_i = [-2.5;+0.5];
+            case '4'
+                x_i = [-1; -3];
+        end
+        
+        nIters = 300;
+        for i = 1:nIters
+            delF = gradF1(x_i);
+            %
+            x_pre = x_i;
+            x_i = x_i - g1*delF;
+            plot([x_pre(1) x_i(1)], [x_pre(2) x_i(2)]);
+            plot(x_i(1), x_i(2), 'o', 'LineWidth', 2, 'MarkerEdgeColor', 'k', 'MarkerFaceColor', 'g', 'MarkerSize',3);
+            %x1 = x_i(1);
+            %x2 = x_i(2);
+            %fF = objFunc1([x1; x2]);
+            %disp([fF, x_i]);
+            pause;
+        end
+        hold off;
+        
+    case 'Simplex'
+        
+        
+        %% Minimization -- Trying to Find Global Minimum (different starting points)
+        
+        tol  = 1e-6;
+        myOptions = optimset(...
+            'Display', 'off', ...
+            'MaxIter', 500, ...
+            'MaxFunEvals', 5000, ...
+            'TolX', tol, ...
+            'TolFun', tol, ...
+            'TolCon', tol, ...
+            'LargeScale', 'off');
+          
+        switch whichStartingPoint
+            case '1'
+                
+                % Case 1
+                x0 = -1;
+                y0 = +2.5;
+                params_0 = [x0 y0];
+                params = fminsearch('objFunc1', params_0, myOptions);
+                zMin = objFunc1(params);
+                disp(['Case 1: starting point: (', num2str(x0), ',', num2str(y0), ') approximate solution: (', num2str(params(1)), ',', num2str(params(2)), ') and the (possible) global minimum is ', num2str(zMin)]);
+                
+            case '2'
+                
+                % Case 2
+                x0 = 1;
+                y0 = 1;
+                params_0 = [x0 y0];
+                params = fminsearch('objFunc1', params_0, myOptions);
+                zMin = objFunc1(params);
+                disp(['Case 2: starting point: (', num2str(x0), ',', num2str(y0), ') approximate solution: (', num2str(params(1)), ',', num2str(params(2)), ') and the (possible) global minimum is ', num2str(zMin)]);
+                
+            case '3'
+                
+                % Case 3
+                x0 = -2.5;
+                y0 = +0.5;
+                params_0 = [x0 y0];
+                params = fminsearch('objFunc1', params_0, myOptions);
+                zMin = objFunc1(params);
+                disp(['Case 3: starting point: (', num2str(x0), ',', num2str(y0), ') approximate solution: (', num2str(params(1)), ',', num2str(params(2)), ') and the (possible) global minimum is ', num2str(zMin)]);
+                
+            case '4'
+                
+                % Case 4
+                x0 = -1.0;
+                y0 = -3.0;
+                params_0 = [x0 y0];
+                params = fminsearch('objFunc1', params_0, myOptions);
+                zMin = objFunc1(params);
+                disp(['Case 4: starting point: (', num2str(x0), ',', num2str(y0), ') approximate solution: (', num2str(params(1)), ',', num2str(params(2)), ') and the (possible) global minimum is ', num2str(zMin)]);
+                
+        end
+        
+end
+
+
+%% Visualization (for higher dimensional cases)
+
+figure(3);
+%params = [x1 y1];
+
+%params_1 = [-4.0 +4.0];
+%params_2 = [+4.0 -4.0];
+
+
+params_1 = [+4.0 -3.0];
+params_2 = [-3.0 +4.0];
+
+beta = 0:0.01:1;
+beta = beta(:);
+len3 = length(beta);
+lossValues = zeros(len3,1);
+
+for k = 1:len3
+    params_Tmp = beta(k)*params_1 + (1-beta(k))*params_2;
+    lossValues(k) = objFunc1(params_Tmp);
+end
+plot(beta, lossValues);</pre></p>
+
+<h3>main2.m</h3>
+<p><pre>%% Data 
+lenT = 1000;
+a0 = 5;
+b1 = 2.5;
+
+x1 = -2 + 4 *rand(lenT,1);
+
+y = zeros(lenT,1);
+for j = 1:lenT
+    y(j) = a0 + b1*x1(j) + randn;
+end
+
+plot(x1,y,'x');
+hold off;
+
+
+%% Gradient Descent (batch or vanilla)
+
+% i.e. entire data set is being used
+
+a = -40:0.5:40;
+len1 = length(a);
+b = -50:0.5:50;
+len2 = length(b);
+
+s = zeros(len2,len1);
+
+for i = 1:len1
+    for j = 1:len2
+        s(j,i) = sum((y-a(i)-b(j)*x1).^2)/lenT;
+    end
+end
+
+subplot(1,2,1);
+contour(a,b,s,40);
+hold on;
+
+nIters = 3;
+
+% learning rate
+g1 = 0.1;
+
+%% (Batch) Gradient Descent
+
+a0 = 40;
+b1 = -50;
+x_i = [a0; b1];
+
+for i = 1:nIters
+
+    delF = gradF2(x_i, y, x1);
+    
+    x_pre = x_i;
+    x_i = x_i - g1*delF;
+    
+    subplot(1,2,1);
+    plot([x_pre(1) x_i(1)], [x_pre(2) x_i(2)]);
+    plot(x_i(1), x_i(2), 'o', 'LineWidth', 2, 'MarkerEdgeColor', 'k', 'MarkerFaceColor', 'g', 'MarkerSize',3);
+    title(['(Batch) Gradient Descent:  iteration=', num2str(i),'(',num2str(nIters),')']);
+    a0 = x_i(1);
+    b1 = x_i(2);
+    
+    subplot(1,2,2);
+    plot(x1, y, '*');
+    hold on;
+    plot(x1, a0+b1*x1, 'r-', 'LineWidth', 3);
+    hold off;
+
+    pause;
+    
+end
+
+%% Mini-Batch Gradient Descent
+
+a0 = 40;
+b1 = -50;
+x_i = [a0; b1];
+
+batchSize = 50;
+numOfBatches = ceil(lenT/batchSize);
+
+for i = 1:nIters
+
+    for j = 1:numOfBatches
+        
+        disp([i j]);
+        start = 1+(j-1)*batchSize;
+        finish = min(j*batchSize, lenT);
+        delF = gradF2(x_i, y(start:finish), x1(start:finish));
+        
+        x_pre = x_i;
+        x_i = x_i - g1*delF;
+        
+        subplot(1,2,1);
+        plot([x_pre(1) x_i(1)], [x_pre(2) x_i(2)]);
+        plot(x_i(1), x_i(2), 'o', 'LineWidth', 2, 'MarkerEdgeColor', 'c', 'MarkerFaceColor', 'y', 'MarkerSize', 3);
+        title(['Mini-batch Gradient Descent: iteration=', num2str(i), '(',num2str(nIters),'), batch size(totle size)=', num2str(batchSize), '(', num2str(lenT), ') which batch=', num2str(j)]); 
+        
+        a0 = x_i(1);
+        b1 = x_i(2);
+        
+        subplot(1,2,2);
+        plot(x1, y, '*');
+        hold on;
+        plot(x1, a0+b1*x1, 'r-', 'LineWidth', 3);
+        hold off;
+        
+        pause;
+    end
+    
+end
+
+
+%% Stochastic Gradient Descent
+a0 = 40;
+b1 = -50;
+x_i = [a0; b1];
+
+% learning rate
+g1 = 0.1;
+for i = 1:nIters
+
+    for j = 1:lenT
+        
+        disp([i j]);
+        delF = gradF2(x_i, y(j), x1(j));
+        
+        x_pre = x_i;
+        x_i = x_i - g1*delF;
+        
+        subplot(1,2,1);
+        plot([x_pre(1) x_i(1)], [x_pre(2) x_i(2)]);
+        plot(x_i(1), x_i(2), 'o', 'LineWidth', 2, 'MarkerEdgeColor', 'b', 'MarkerFaceColor', 'r', 'MarkerSize',3);
+        title(['Stochastic Gradient Descent: iteration=', num2str(i), '(',num2str(nIters),'), j=', num2str(j),'(',num2str(lenT),')']); 
+        
+        
+        a0 = x_i(1);
+        b1 = x_i(2);
+        
+        subplot(1,2,2);
+        plot(x1, y, '*');
+        hold on;
+        plot(x1, a0+b1*x1, 'r-' , 'LineWidth', 3);
+        hold off;
+        
+        pause;
+    end
+    
+    pause;
+    
+end</pre></p>
+
+<h3>objFunc1.m</h3>
+<p><pre>function mae = objFunc1(params)
+
+x = params(1);
+y = params(2);
+
+mae =  3*(1-x).^2.*exp(-(x.^2) - (y+1).^2) - 10*(x/5 - x.^3 - y.^5).*exp(-x.^2-y.^2) - 1/3*exp(-(x+1).^2 - y.^2);</pre></p>
+
+<h3>objFunc2.m</h3>
+<p><pre>function mae = objFunc2(params, y, x1)
+
+a0 = params(1);
+b1 = params(2);
+
+n = size(y,1);
+
+mae = sum((y - a0 - b1*x1).^2)/n;</pre></p><br><br>
+
+<p><span style="color:red">LECTURE 6</span></p>
+<h3>genericFFT.m</h3>
+<p><pre>function call = genericFFT(model, eta, alpha, N, S0, K, r, q, T, params)
+
+lda = 2*pi/(N*eta);
+%
+j = 0:N-1;
+nu = j*eta; 
+nu = nu(:);
+
+C = exp(-r*T); % constant
+
+CF_u = modelCF(model, nu-(alpha+1)*1i, S0, r, q, T, params);
+
+beta = log(K);
+
+FourierTransformOfModifiedCall = zeros(N,1);    
+for i = 1:N
+    if i == 1
+        FourierTransformOfModifiedCall(i) = (eta/2) * C * exp(-1i*beta*nu(i)) * CF_u(i) / ( (alpha + 1i*nu(i)) * (alpha + 1i*nu(i) + 1) );
+    else
+        FourierTransformOfModifiedCall(i) = eta     * C * exp(-1i*beta*nu(i)) * CF_u(i) / ( (alpha + 1i*nu(i)) * (alpha + 1i*nu(i) + 1) );
+    end
+end
+
+y = fft(FourierTransformOfModifiedCall);
+
+a = zeros(N,1);
+for m = 1:N
+    a(m) = exp(-alpha*(beta+(m-1)*lda))/pi;
+end
+
+c = (real(y)).*a;
+
+call = c(1);</pre></p>
+
+<h3>main.m</h3>
+<p><pre>%% Data
+
+% Parameters
+% kind of hard-coded, do not like it!
+alpha = 1.5;
+eta = 0.1;
+n = 12;
+N = 2^n;
+
+
+% Contract Parameters
+S0 = 100;
+r = 0.10;
+q = 0.015;
+
+% Model
+model = 'Heston';
+%      
+kappa = 2.75;
+theta= 0.0625;
+lambda = 0.0125;
+rho = -0.65;
+v_0 = 0.05;
+
+
+params = [kappa theta lambda rho v_0];
+
+strikes = 90:5:110;
+maturities = 0.25:0.05:0.75;
+
+lenK = length(strikes);
+lenT = length(maturities);
+
+marketPrices = zeros(lenK, lenT);
+
+for i = 1:lenK
+    for j = 1:lenT
+        K = strikes(i);
+        T = maturities(j);
+        marketPrices(i,j) = genericFFT(model, eta, alpha, N, S0, K, r, q, T, params);
+    end
+end
+
+figure(1);
+surf(maturities, strikes, marketPrices);
+
+%% Brute-Force (Grid Search) 
+%  extremely expensive choice, in general non-feasible 
+
+modelPrices = zeros(lenK, lenT);
+maeMin = 1e6;
+for kappa = 2.5:0.25:3.0
+    for theta = 0.06:0.0025:0.065
+        for lambda = 0.0100:0.0025:0.0150
+            for rho = -0.675:0.025:-0.625
+                for v_0 = 0.04:0.01:0.06
+                    params = [kappa theta lambda rho v_0];
+                    
+                    for i = 1:lenK
+                        for j = 1:lenT
+                            K = strikes(i);
+                            T = maturities(j);
+                            modelPrices(i,j) = genericFFT(model, eta, alpha, N, S0, K, r, q, T, params);
+                        end
+                    end
+                    
+                    mae = sum(sum((modelPrices - marketPrices).^2));
+                    
+                    if mae < maeMin
+                        maeMin = mae;
+                        params2 = params;
+                    end
+                    
+                end
+            end
+        end
+    end
+end
+
+disp(params2);
+
+%% Calibration
+
+tol  = 1e-6;
+myOptions = optimset(...
+    'Display', 'iter', ...
+    'MaxIter', 500, ...
+    'MaxFunEvals', 5000, ...
+    'TolX', tol, ...
+    'TolFun', tol, ...
+    'TolCon', tol, ...
+    'LargeScale', 'off');
+
+kappa = 5.0;
+theta= 0.10;
+lambda = 0.05;
+rho = 0.9;
+v_0 = 0.10;
+
+params_0 = [kappa theta lambda rho v_0];
+
+paramsS = fminsearch('objFunc1', params_0, myOptions, model, maturities, strikes, marketPrices, S0, r, q, eta, alpha, N);
+
+modelPrices = zeros(lenK, lenT);
+
+for i = 1:lenK
+    for j = 1:lenT
+        K = strikes(i);
+        T = maturities(j);
+        modelPrices(i,j) = genericFFT(model, eta, alpha, N, S0, K, r, q, T, paramsS);
+    end
+end
+
+figure(2);
+surf(maturities, strikes, marketPrices-modelPrices);
+
+%% extrapolation
+
+strikes2 = 80:5:120;
+%maturities2 = 0.05:0.05:0.25;
+maturities2 = 0.75:0.05:1.0;
+
+lenK2 = length(strikes2);
+lenT2 = length(maturities2);
+
+marketPrices2 = zeros(lenK2, lenT2);
+modelPrices2 = zeros(lenK2, lenT2);
+
+for i = 1:lenK2
+    for j = 1:lenT2
+        K = strikes2(i);
+        T = maturities2(j);
+        marketPrices2(i,j) = genericFFT(model, eta, alpha, N, S0, K, r, q, T, params);
+        modelPrices2(i,j) = genericFFT(model, eta, alpha, N, S0, K, r, q, T, paramsS);
+    end
+end
+
+figure(3);
+subplot(1,2,1);
+surf(maturities, strikes, marketPrices-modelPrices);
+
+subplot(1,2,2);
+surf(maturities2, strikes2, marketPrices2-modelPrices2);
+
+%% Visualization (for higher dimensional cases)
+
+%params = [kappa theta lambda rho v_0];
+
+%params_1 = [5.0 0.10 0.05 +0.5 0.04];
+%params_2 = [1.0 0.04 0.20 -0.5 0.10];
+
+%params_1 = params;
+%params_2 = paramsS;
+
+strikes3 = 90:5:110;
+maturities3 = 0.25:0.05:0.75;
+
+lenK3 = length(strikes3);
+lenT3 = length(maturities3);
+
+marketPrices3 = zeros(lenK3, lenT3);
+
+for i = 1:lenK3
+    for j = 1:lenT3
+        K = strikes3(i);
+        T = maturities3(j);
+        marketPrices3(i,j) = genericFFT(model, eta, alpha, N, S0, K, r, q, T, params);
+    end
+end
+
+
+beta = -0.5:0.05:1.5;
+beta = beta(:);
+len3 = length(beta);
+lossValues = zeros(len3,1);
+
+for k = 1:len3
+    params_Tmp = beta(k)*params_1 + (1-beta(k))*params_2;
+    lossValues(k) = objFunc1(params_Tmp, model, maturities3, strikes3, marketPrices, S0, r, q, eta, alpha, N);
+end
+figure(4);
+plot(beta, lossValues);
+
+%%
+
+params_0 = 0.4*params_1 + 0.6*params_2;
+params = fminsearch('objFunc1', params_0, myOptions, model, maturities, strikes, marketPrices, S0, r, q, eta, alpha, N);
+
+%%
+
+params_1 = 0.4*params_1 + 0.6*params_2;
+params_2 = [2.7604    0.0625    0.0283   -0.2840    0.0500];
+
+
+beta = -2:0.05:2;
+beta = beta(:);
+len3 = length(beta);
+lossValues = zeros(len3,1);
+
+for k = 1:len3
+    params_Tmp = beta(k)*params_1 + (1-beta(k))*params_2;
+    lossValues(k) = objFunc1(params_Tmp, model, maturities, strikes, marketPrices, S0, r, q, eta, alpha, N);
+end
+plot(beta, lossValues);</pre></p>
+
+<h3>modelCF.m</h3>
+<p><pre>function cf = modelCF(model, u, S0, r, q, T, params)
+
+
+switch model
+    
+    case 'GBM'
+        
+        sig = params(1);
+        cf = exp( 1i*(log(S0)+(r-q-sig*sig/2)*T)*u - 0.5*sig*sig*u.*u*T );
+        
+    case {'Heston', 'GBMSA'}
+        
+        %params = [kappa, theta, sigma, rho, v_0];
+        kappa = params(1);
+        theta = params(2);
+        sigma = params(3);
+        rho   = params(4);
+        v_0   = params(5);
+        
+        g = sqrt((kappa-1i*rho*sigma.*u).^2+(u.*u+1i.*u)*sigma*sigma);
+        beta = kappa-rho*sigma*1i.*u;
+        tmp = g*T/2;
+        %
+        temp1 = 1i*(log(S0)+(r-q)*T)*u + kappa*theta*T*beta/(sigma*sigma);
+        temp2 = -(u.*u+1i*u)*v_0./(g.*coth(tmp)+beta);
+        temp3 = (2*kappa*theta/(sigma*sigma)).*log(cosh(tmp)+(beta./g).*sinh(tmp));
+        
+        cf = exp(temp1+temp2-temp3);
+        
+        
+    case 'VG'
+        
+        %params = [sig, nu, theta];
+        sig   = params(1);
+        nu    = params(2);
+        theta = params(3);
+        %
+        omega = log(1.0-theta*nu-(sig.^2)*nu/2)/nu;
+        %
+        temp1 = 1i*(log(S0)+(r-q+omega)*T)*u;
+        temp2 = -T*log(1 - 1i*u*theta*nu + sig*sig*u.*u*nu/2)/nu;
+        
+        cf = exp(temp1+temp2);
+        
+        
+    case 'Merton'
+        
+    case 'VGSA'
+        
+    case 'VGSSD'
+        
+    case 'CGMY'
+        
+    case 'CGMYSA'
+        
+        
+end</pre></p>
+
+<h3>objFunc1</h3>
+<p><pre>function mae = objFunc1(params, model, maturities, strikes, marketPrices, S0, r, q, eta, alpha, N)
+
+
+lenK = length(strikes);
+lenT = length(maturities);
+
+calls = zeros(lenK, lenT);
+
+mae=0;
+for i = 1:lenK
+    for j = 1:lenT
+        K = strikes(i);
+        T = maturities(j);
+        calls(i,j) = genericFFT(model, eta, alpha, N, S0, K, r, q, T, params);
+        mae = mae + (calls(i,j) - marketPrices(i,j))^2;
+    end
+end</pre></p>
+
+</p>
+	</main>
+	<footer role="contact info">
+		<ul>
+			<li>CONTACT</li>
+			<li>Email: ali.hirsa@columbia.edu</li>
+		</ul>
+	</footer>
+</body>
+</html>

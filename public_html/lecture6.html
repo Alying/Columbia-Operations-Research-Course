@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecture Five</title>
+	<meta name = "description" content = "IEOR">
+	<link rel="stylesheet" type="text/css" href="lectures.css">
+</head>
+<body>
+	<nav role="navigation bar">
+		<ul>
+			<li id="home"><a href="index.html">Home</a></li>
+			<li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+			<div class="dropdown">
+				<li>Lectures</li>
+				<div class="lectures">
+					<li><a href="lecture1.html">Lecture 1</a></li>
+					<li><a href="lecture2.html">Lecture 2</a></li>
+					<li><a href="lecture3.html">Lecture 3</a></li>
+					<li><a href="lecture4.html">Lecture 4</a></li>
+					<li><a href="lecture5.html">Lecture 5</a></li>
+				</div>
+			</div>
+			<div class="dropdown2">
+				<li>Code</li>
+				<div class="lecture_code">
+					<li><a href="code1.html">Lect. 1</a></li>
+					<li><a href="code2.html">Lect. 2</a></li>
+					<li><a href="code3.html">Lect. 3</a></li>
+					<li><a href="code4.html">Lect. 4</a></li>
+					<li><a href="code5.html">Lect. 5</a></li>
+					<li><a href="code6.html">Lect. 6</a></li>
+					<li><a href="matlab.html">Matlab</a></li>
+				</div>
+			</div>
+			<li id="about"><a href="about.html">About</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>Lecture 5</h2>
+		<h3>Machine-learning (descents)</h3>
+		<p>Here is an overall look at and illustration of machine-learning.</p>
+		<p>Given a set of datapoints in a scatterplot, we try to reverse-engineer the function by curve-fitting as best as possible to the datapoints. By assuming it is a polynomial function, all we need to do is figure out the values of a<sub>0</sub>, b<sub>1</sub>, ... essentially all the constants of this function that are specific to the datapoints.</p>
+		<img src="images/ml_history.png">
+		
+		<p>We have a couple of strategies:
+			<ol>
+				<li>Linear regression</li>
+				<li>Simplex/loss function</li>
+				<li>Gradient descent (vanilla, SGD, and batch)</li>
+			</ol>
+		</p>
+		<img src="images/ml_strategies.png">
+		<p>We will look at the gradient descents. You can review linear regression and the simplex/loss function on your own. </p>
+
+		<p>Take a look at Professor Hirsa's notes in a pdf: <a href="lecture_pdf/lecture5.pdf">Lecture 5 Notes</li></p>
+	</main>
+	<footer role="contact info">
+		<ul>
+			<li>CONTACT</li>
+			<li>Email: ali.hirsa@columbia.edu</li>
+		</ul>
+	</footer>
+</body>
+</html>

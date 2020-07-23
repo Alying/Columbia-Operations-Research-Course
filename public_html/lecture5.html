@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecture Five</title>
+	<meta name = "description" content = "IEOR">
+	<link rel="stylesheet" type="text/css" href="lectures.css">
+</head>
+<body>
+	<nav role="navigation bar">
+		<ul>
+			<li id="home"><a href="index.html">Home</a></li>
+			<li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+			<div class="dropdown">
+				<li>Lectures</li>
+				<div class="lectures">
+					<li><a href="lecture1.html">Lecture 1</a></li>
+					<li><a href="lecture2.html">Lecture 2</a></li>
+					<li><a href="lecture3.html">Lecture 3</a></li>
+					<li><a href="lecture4.html">Lecture 4</a></li>
+					<li><a href="lecture5.html">Lecture 5</a></li>
+				</div>
+			</div>
+			<div class="dropdown2">
+				<li>Code</li>
+				<div class="lecture_code">
+					<li><a href="code1.html">Lect. 1</a></li>
+					<li><a href="code2.html">Lect. 2</a></li>
+					<li><a href="code3.html">Lect. 3</a></li>
+					<li><a href="code4.html">Lect. 4</a></li>
+					<li><a href="code5.html">Lect. 5</a></li>
+					<li><a href="code6.html">Lect. 6</a></li>
+					<li><a href="matlab.html">Matlab</a></li>
+				</div>
+			</div>
+			<li id="about"><a href="about.html">About</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>Lecture 5</h2>
+		<h3>Machine-learning (descents)</h3>
+		<p>Here is an overall look at and illustration of machine-learning.</p>
+		<p>Given a set of datapoints in a scatterplot, we try to reverse-engineer the function by curve-fitting as best as possible to the datapoints. By assuming it is a polynomial function, all we need to do is figure out the values of a<sub>0</sub>, b<sub>1</sub>, ... essentially all the constants of this function that are specific to the datapoints.</p>
+		<img src="images/ml_history.PNG">
+		
+		<p>We have a couple of strategies:
+			<img src="images/ml_strategies.PNG">
+			<ol>
+				<li>Linear regression</li>
+				<p>The first curve-fitting strategy is simply linear regression: finding the best-fit line through all the datapoints you have. The coefficient of determination, R<sup>2</sup>, is the proportion of the variance in the dependent variable, which essentially allows you to figure out how much the data "varies." Linear regression is covered in all basic statistics courses. </p>
+				<li>Simplex algorithm</li>
+				<p>The second strategy is the Simplex algorithm. We will not be going over this, but you should check it out online yourself. It is a pretty popular statistical method.</p>
+				<li>Gradient descent (vanilla, SGD, and batch)</li>
+				<p>The types of gradient descents are separated, essentially, by how we filter in the samples. Vanilla gradient descent takes in the entire population. Stochastic gradient descent, on the other hand, takes in randomly-picked samples.</p>
+				<img src="images/stochastic.PNG">
+				<p>The first x-range is from -2 to 2 with intervals of 0.01. The second is random.</p>
+				<p>After applying the stochastic gradient descent to find a curve, we use the RMS (root mean squared) method to check the error/how close the datapoints are to the curve. </p>
+				<img src="images/rms_detail.PNG">
+				<p>Listed below are the objective function and the gradient of the objective function.</p>
+				<img src="images/objective&gradient.PNG">
+				<p>We can also write this another way, with x and x<sup>*</sup></p>.
+				<img src="images/another_function.PNG">
+				<p>Here are two quick sketches/illustrations of the above.</p>
+				<img src="images/loss_function_illustration.PNG">
+			</ol>
+		</p>
+		<p>To sum it up, the learning algorithm is applicable to statistical ML (Bayesian updates), machine-learning as a whole, and deep-learning, which you can individually explore. For these, the loss functions are an important part of optimization.</p>
+		<img src="images/learning_algo.PNG">
+		<p>As for the loss function itself, there are a couple key factors that affect which type of loss function to use.</p>
+		<img src="images/loss_function_detail.PNG">
+		<p>These are: 1) the choice of the starting point 2) the choice of optimization (using simplex, or using some sort of gradient descent) 3) the choice of objective function (whether it is the <i>distance</i> or the <i>y-difference</i> (careful!) 4) for all of these, we need to stress-test them with the datapoints to see how accurate they are.</p>
+
+		<p>Take a look at Professor Hirsa's notes in a pdf: <a href="lecture_pdfs/lecture5.pdf">Lecture 5 Notes</li></p>
+	</main>
+	<footer role="contact info">
+		<ul>
+			<li>CONTACT</li>
+			<li>Email: ali.hirsa@columbia.edu</li>
+		</ul>
+	</footer>
+</body>
+</html>

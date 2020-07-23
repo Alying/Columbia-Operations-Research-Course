@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecture Four</title>
+	<meta name = "description" content = "IEOR">
+	<link rel="stylesheet" type="text/css" href="lectures.css">
+</head>
+<body>
+	<nav role="navigation bar">
+		<ul>
+			<li id="home"><a href="index.html">Home</a></li>
+			<li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+			<div class="dropdown">
+				<li>Lectures</li>
+				<div class="lectures">
+					<li><a href="lecture1.html">Lecture 1</a></li>
+					<li><a href="lecture2.html">Lecture 2</a></li>
+					<li><a href="lecture3.html">Lecture 3</a></li>
+					<li><a href="lecture4.html">Lecture 4</a></li>
+					<li><a href="lecture5.html">Lecture 5</a></li>
+				</div>
+			</div>
+			<div class="dropdown2">
+				<li>Code</li>
+				<div class="lecture_code">
+					<li><a href="code1.html">Lect. 1</a></li>
+					<li><a href="code2.html">Lect. 2</a></li>
+					<li><a href="code3.html">Lect. 3</a></li>
+					<li><a href="code4.html">Lect. 4</a></li>
+					<li><a href="code5.html">Lect. 5</a></li>
+					<li><a href="code6.html">Lect. 6</a></li>
+					<li><a href="matlab.html">Matlab</a></li>
+				</div>
+			</div>
+			<li id="about"><a href="about.html">About</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h3>Recap</h3>
+		<p>Let's go over a recap of everything we've covered so far.</p>
+		<img src="images/root_recap.PNG">
+		<p>The first is <i>root-finding</i>. Here we find the root for x<sup>2</sup> - 9 = 0, which is the square root of 3. We can represent this both through graphs and through equation.</p>
+
+		<p>We then went over three major methods to keep in mind for root-finding (Taylor expansion is not included below, but it also works as well).</p>
+		<img src="images/methods.PNG">
+
+		<p>Then, we looked at curve-fitting. Given a set of datapoints, we can draw any number of polynomial functions that go through all the points. We want, however, to get the most optimal polynomial function, the one with the least error.</p>
+		<img src="images/curve_fitting_overview.PNG">
+		<p>We also don't want to overfit, which is a very prominent problem that we can easily fall into.</p>
+
+		<p>There are a couple of easy polynomial functions that we all know, "families," if you will. These include linear, parabolic, cubic, etc...</p>
+		<img src="images/family_of_curves.PNG">
+		<p>These make it easier to categorize and fit functions to datapoints, as many real-life scenarios can be approximated by sunch simple functions.</p>
+
+		<p><b><i>MATLAB-specific</i></b>: it is a good idea to note that MATLAB has a function called fminsearch, which essentially uses grid-searching (brute force) to find the roots.</p>
+		<img src="images/gridsearch.PNG">
+		<img src="images/fminsearch.PNG">
+
+		<p>Lastly we went over optimization.</p>
+		<img src="images/optimization_review.PNG">
+		<p>The main idea is to find the critical points of the function, which include minimum (global and local), maximum (global and local), and saddle points. Optimization is a topic heavily covered in calculus classes, so we will not go too in-depth in those. All of the topics covered in calculus are very applicable to IEOR. Here is a quick illustrated review: </p>
+		<img src="images/globalmin.PNG">
+		<img src="images/globalmin2.PNG">
+		<img src="images/globalmin3.PNG">
+
+		<h2>Lecture 4</h2>
+		<h3>Gradient Descent</h3>
+		<p>As left off in Lecture 3, let's look more deeply into the different types of descent. The first of these is Gradient descent, which is named after the idea of calculus gradients:</p>
+		<img src="images/gradient_descent_def.PNG">
+
+		<p>Here is an example of partial derivatives, with respect to x and y. These are derivatives of the function f(x,y) = 2x<sup>2</sup>y<sup>3</sup>.</p>
+		<img src="images/gradient_descent_ex.PNG">
+
+		<p>Here is a graph of that function. This is looking from the side of the graph.</p>
+		<img src="images/graph.PNG">
+
+		<p>Illustrated below is a contour-map of this graph. This is looking from above the graph. The arrows you see in red is the drawn gradient (the partial derivatives).</p>
+		<img src="images/gradient_graph.PNG">
+		<img src="images/gradient_info.PNG">
+
+		<h3>Adaptive delta/Machine-learning</h3>
+		<p>To go over more of machine-learning and an adaptive delta, let's revisit this equation again. This is the general equation for vanilla gradient descent (vanilla just means without any extra parameters or sample specifications).</p>
+		<img src="images/gradient_equation.PNG">
+
+		<p>The choosing of delta at each iteration is the key to finding an increasingly-accurate curve-fitting function. If it is too high, the function may not converge. If it is too low, it may converge too slowly (too expensively).</p>
+		<img src="images/adaptive_delta_info.PNG">
+
+		<p>The different methods people have come up with for machine-learning in order to make it less-biased and more accurate are: 
+			<ol>
+				<li>Having various different starting points</li>
+				<li>Having randomization (stochastic)</li>
+				<li>Having a loss function (that may have different weighting)</li>
+			</ol>
+		</p>
+		<p>The last question is: how do we make delta accurately adaptive?</p>
+		<img src="images/adaptive_delta.PNG">
+		<img src="images/ml.PNG">
+
+		<p>We use different descent methods: Vanilla Gradient Descent, Stochastic Descent and Mini-batch descent. These will be described in Lecture 5.</p>
+
+		<p>Take a look at Professor Hirsa's notes in a pdf: <a href="lecture_pdfs/lecture4.pdf">Lecture 4 Notes</li></p>
+	</main>
+	<footer role="contact info">
+		<ul>
+			<li>CONTACT</li>
+			<li>Email: ali.hirsa@columbia.edu</li>
+		</ul>
+	</footer>
+</body>
+</html>

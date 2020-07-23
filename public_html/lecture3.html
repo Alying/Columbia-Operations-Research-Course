@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecture Three</title>
+	<meta name = "description" content = "IEOR">
+	<link rel="stylesheet" type="text/css" href="lectures.css">
+</head>
+<body>
+	<nav role="navigation bar">
+		<ul>
+			<li id="home"><a href="index.html">Home</a></li>
+			<li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+			<div class="dropdown">
+				<li>Lectures</li>
+				<div class="lectures">
+					<li><a href="lecture1.html">Lecture 1</a></li>
+					<li><a href="lecture2.html">Lecture 2</a></li>
+					<li><a href="lecture3.html">Lecture 3</a></li>
+					<li><a href="lecture4.html">Lecture 4</a></li>
+					<li><a href="lecture5.html">Lecture 5</a></li>
+				</div>
+			</div>
+			<div class="dropdown2">
+				<li>Code</li>
+				<div class="lecture_code">
+					<li><a href="code1.html">Lect. 1</a></li>
+					<li><a href="code2.html">Lect. 2</a></li>
+					<li><a href="code3.html">Lect. 3</a></li>
+					<li><a href="code4.html">Lect. 4</a></li>
+					<li><a href="code5.html">Lect. 5</a></li>
+					<li><a href="code6.html">Lect. 6</a></li>
+					<li><a href="matlab.html">Matlab</a></li>
+				</div>
+			</div>
+			<li id="about"><a href="about.html">About</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>Lecture 3</h2>
+		<h3>Optimization</h3>
+		<p>The first topic we will go over today is optimization. Beware: optimization and root-finding may seem similar, but they are very different ideas.</p>
+		<img src="images/diff.jpg">
+		<p>Optimization is often finding the minimum or maximum value of a function. Pictured below is a textbook problem for dictating a function/polynomial for the word-problem, and then solving for the maximum value of the function using derivatives. As you can probably tell, derivatives are a very powerful tool for solving optimization problems.</p>
+		<img src="images/optimization_problem.jpg">
+		<p>In addition to maximum and minimum points, there are also saddle points to look out for. Review calculus for this.</p>
+
+		<h3>Machine-learning</h3>
+		<p>A big part of machine-learning is figuring out how to make delta (the error threshold value) better and better as each new datapoint enters in. In other words, how to make delta adaptive.</p>
+		<img src="images/ml.jpg">
+		<p>As you can see, delta doesn't necessarily become "smaller" persay; it just becomes "better" as in the function curve fits all the datapoints in a more accurate manner.</p>
+
+		<p>Illustrated below (#1) is an equation that describes this concept. We stop when the error is less than 10<sup>-5</sup>.</p>
+		<img src="images/ml2.jpg">
+		<p>Under #2, we can look at the code for vanilla gradient descent and see how slow the gradient is shrinking.</p>
+		<p>We will go over more of the different types of gradient descent in Lecture 4.</p>
+
+	</main>
+	<footer role="contact info">
+		<ul>
+			<li>CONTACT</li>
+			<li>Email: ali.hirsa@columbia.edu</li>
+		</ul>
+	</footer>
+</body>
+</html>

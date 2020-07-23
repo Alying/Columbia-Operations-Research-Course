@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lecture Two</title>
+	<meta name = "description" content = "IEOR">
+	<link rel="stylesheet" type="text/css" href="lectures.css">
+</head>
+<body>
+	<nav role="navigation bar">
+		<ul>
+			<li id="home"><a href="index.html">Home</a></li>
+			<li id="syllabus"><a href="syllabus.html">Syllabus</a></li>
+			<div class="dropdown">
+				<li>Lectures</li>
+				<div class="lectures">
+					<li><a href="lecture1.html">Lecture 1</a></li>
+					<li><a href="lecture2.html">Lecture 2</a></li>
+					<li><a href="lecture3.html">Lecture 3</a></li>
+					<li><a href="lecture4.html">Lecture 4</a></li>
+					<li><a href="lecture5.html">Lecture 5</a></li>
+				</div>
+			</div>
+			<div class="dropdown2">
+				<li>Code</li>
+				<div class="lecture_code">
+					<li><a href="code1.html">Lect. 1</a></li>
+					<li><a href="code2.html">Lect. 2</a></li>
+					<li><a href="code3.html">Lect. 3</a></li>
+					<li><a href="code4.html">Lect. 4</a></li>
+					<li><a href="code5.html">Lect. 5</a></li>
+					<li><a href="code6.html">Lect. 6</a></li>
+					<li><a href="matlab.html">Matlab</a></li>
+				</div>
+			</div>
+			<li id="about"><a href="about.html">About</a></li>
+		</ul>
+	</nav>
+	<main>
+		<h2>Recap of Lecture 1</h2>
+		<p>Here is a quick recap over what we went over before:</p>
+		<img src="images/recap.png">
+		<p>As a recap over Lecture One, we went over three major root-finding methods: Bisection, Newton-Raphson, and the Secant Method (as well as brute force). The latter two work for convex/concave functions. Normally, we assume function <i>f</i> refers to a concave function and function <i>-f</i> is a convex function. </p>
+
+		<h2>Lecture 2</h2>
+		<h3>Taylor Expansion</h3>
+			<p>Here, we add another root-finding method.</p>
+			<ol>
+				<li>Brute force</li>
+				<li>Bisection method</li>
+				<li>Newton-Raphson method</li>
+				<li>Secant method</li>
+				<li>Taylor expansion method</li>
+				<p>Here is an illustration of using the Taylor series. This is not necessary to know, but it <i>is</i> interesting.</p>
+				<img src="images/taylor.jpg">
+			</ol>
+
+		<h3>Curve-fitting</h3>
+		<p>The second main topic is curve-fitting. Curve-fitting is an important part of reverse-engineering and is our gentle introduction to the field.</p>
+		<p>Look over the illustration below.</p>
+		<img src="images/curve.jpg">
+		<p>Using specific x<sub>i</sub>, y<sub>i</sub> values, we can always find some sort of polynomial that "curve-fits" those points. Engineering is, put simply, using the function to define the datapoints. Reverse-engineering is using datapoints to figure out a possible function that fits it. This is important so as to understand any dataset, predict future datapoints, and see past datapoints.</p>
+		<p>Now, an important part of curve-fitting is figuring out how good your curve is (how well it fits the datapoints). Thus, we look over methods to measure the "goodness" of fit. These methods are called loss functions. The most famous of these is the root-mean-squared method (RMS).</p>
+		<img src="images/rms.jpg">
+		<p>If we replace the y-hat with the actual function (in this case, we assume it is a polynomial), we get this equation:</p>
+		<img src="images/grid_search.png">
+		<p>Here is one last quick note on curve fitting: an important consideration is calibration of the curve. For instance, if the curve "overfits" (this is a common problem in machine-learning and natural-language-processing).</p>
+
+		<p>Take a look at Professor Hirsa's notes in a pdf: <a href="lecture_pdfs/lecture2.pdf">Lecture 2 Notes</li></p>
+	</main>
+	<footer role="contact info">
+		<ul>
+			<li>CONTACT</li>
+			<li>Email: ali.hirsa@columbia.edu</li>
+		</ul>
+	</footer>
+</body>
+</html>

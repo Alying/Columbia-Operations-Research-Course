@@ -1,0 +1,132 @@
+*, body {
+    margin: 0px;
+    padding: 0px;
+}
+html { 
+  background: url(images/columbia.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body{
+	font-family:"Playfair Display";
+}
+
+nav{
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:1000;9
+	color:navy;
+	background-color:#008B8B;
+	width:100%;
+	padding:20px;
+	background-color: rgba(0,128,128, 0.7);
+}
+nav ul{
+	float:right;
+	margin-right:40px;
+}
+nav h3{
+	padding: 10px 0;
+}
+nav li, nav h3{
+	display:inline-block;
+	opacity:1.0;
+}
+nav li{
+	list-style:none;
+	padding:10px 20px;
+	border:1px solid black;
+	border-radius:2px;
+	font-size:25pt;
+	background-color:#ADD8E6;
+}
+nav li a{
+	text-decoration:none;
+	color:navy;
+}
+.dropdown, .dropdown2 {
+    position: relative;
+    display: inline-block;
+}
+.lectures, .lecture_code{
+	margin-top:1px;
+	display: none;
+	position:absolute;
+    width:100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    text-align:center;
+    padding:0px;
+}
+.lectures li, .lecture_code li{
+	font-size:18pt;
+	margin:0px;
+}
+.dropdown:hover .lectures, .dropdown2:hover .lecture_code{
+    display: block;
+}
+
+header{
+	margin:100px auto 10px;
+	width:80%;
+	background-color: rgba(255,255,255,0.7);
+	border-radius:20px;
+	text-align:center;
+	padding:20px;
+}
+header img{
+	border-radius:30px;
+}
+
+main{
+	margin:0 auto;
+	margin-top:150px;
+	width:80%;
+	padding:50px;
+	background-color:white;
+	border-radius:20px;
+}
+main ol, p{
+	margin:20px;
+	font-size:16pt;
+	color:darkgray;
+}
+main p{
+	margin-bottom:30px;
+}
+main ol{
+	padding-left:20px;
+}
+img{
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+main ul{
+	font-size:18pt;
+}
+main ul li ul{
+	padding-left:70px;
+}
+
+footer{
+	margin:30px auto;
+	width:80%;
+	background-color: rgba(255,255,255,0.7);
+	border-radius:20px;
+	text-align:center;
+	opacity:0.7;
+	padding:20px;
+}
+footer li{
+	list-style:none;
+}
+
+#source{
+	list-style:none;
+}
